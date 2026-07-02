@@ -1,0 +1,211 @@
+:root {
+  --bg:        #0b1220;   /* deep navy map surround            */
+  --panel:     #111a2e;   /* console panel                     */
+  --panel-2:   #0e1626;   /* nested / inset                    */
+  --hair:      #1e2c45;   /* hairline borders                  */
+  --ink:       #c7d2e0;   /* primary text                      */
+  --muted:     #6b7c9a;   /* labels, secondary                 */
+  --asset:     #ffb454;   /* sodium amber: the robot           */
+  --asset-dim: #b67d33;
+  --signal:    #4fd1c5;   /* cyan: link + telemetry values     */
+  --warn:      #f8736d;   /* link lost                         */
+  --radius:    14px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Space Grotesk", system-ui, -apple-system, sans-serif;
+  overflow: hidden;
+}
+
+#map {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--bg);
+}
+
+/* Tone the OSM tiles into the night palette so the marker reads as the hero. */
+.leaflet-tile-pane {
+  filter: brightness(0.62) contrast(1.05) saturate(0.65) hue-rotate(8deg);
+}
+.leaflet-container { background: var(--bg); }
+.leaflet-control-attribution {
+  background: rgba(11, 18, 32, 0.7) !important;
+  color: var(--muted) !important;
+}
+.leaflet-control-attribution a { color: var(--signal) !important; }
+
+/* ---- shared HUD chrome --------------------------------------------------- */
+.hud {
+  position: absolute;
+  z-index: 500;
+  background: color-mix(in srgb, var(--panel) 88%, transparent);
+  border: 1px solid var(--hair);
+  border-radius: var(--radius);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+.hud--top {
+  top: 16px; left: 16px; right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+}
+
+.station { display: flex; flex-direction: column; line-height: 1.1; }
+.station__eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.station__name {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* ---- link status pill ---------------------------------------------------- */
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--hair);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.link__dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--muted);
+}
+.link--live   { border-color: color-mix(in srgb, var(--signal) 45%, var(--hair)); }
+.link--live .link__dot   { background: var(--signal); box-shadow: 0 0 10px var(--signal); animation: breathe 2s ease-in-out infinite; }
+.link--live .link__label { color: var(--signal); }
+.link--connecting .link__dot { background: var(--asset); }
+.link--connecting .link__label { color: var(--asset); }
+.link--lost   { border-color: color-mix(in srgb, var(--warn) 45%, var(--hair)); }
+.link--lost .link__dot   { background: var(--warn); }
+.link--lost .link__label { color: var(--warn); }
+
+/* ---- telemetry console --------------------------------------------------- */
+.hud--telemetry {
+  left: 16px; bottom: 16px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 4px 14px;
+  padding: 16px 20px;
+  min-width: 230px;
+}
+.readout { display: contents; }
+.readout__key {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  align-self: center;
+}
+.readout__val {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--signal);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.readout--rate .readout__val { color: var(--asset); }
+.readout__unit {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--muted);
+  align-self: end;
+  padding-bottom: 3px;
+}
+
+/* ---- signature: bearing rose -------------------------------------------- */
+.hud--rose {
+  right: 16px; bottom: 16px;
+  width: 132px; height: 156px;
+  padding: 10px 10px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.rose { width: 112px; height: 112px; }
+.rose__ring { fill: var(--panel-2); stroke: var(--hair); stroke-width: 1.5; }
+.rose__ticks line { stroke: var(--hair); stroke-width: 1; }
+.rose__cardinal {
+  fill: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  font-family: "Space Grotesk", sans-serif;
+}
+.rose__needle { transition: transform 180ms ease-out; transform-origin: 60px 64px; }
+.rose__needle-n { fill: var(--asset); }
+.rose__needle-s { fill: var(--asset-dim); opacity: 0.55; }
+.rose__hub { fill: var(--bg); stroke: var(--asset); stroke-width: 1.5; }
+.rose__readout {
+  margin-top: 2px;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 13px;
+  color: var(--asset);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- live marker (Leaflet divIcon) -------------------------------------- */
+.robot-marker { position: relative; }
+.robot-marker__core {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 14px; height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 50%;
+  background: var(--asset);
+  border: 2px solid #2a1c06;
+  box-shadow: 0 0 12px var(--asset);
+}
+.robot-marker__pulse {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 14px; height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 50%;
+  background: var(--asset);
+  opacity: 0.5;
+  animation: pulse 1.8s ease-out infinite;
+}
+
+@keyframes pulse {
+  0%   { transform: scale(1);   opacity: 0.5; }
+  100% { transform: scale(4.2); opacity: 0;   }
+}
+@keyframes breathe {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.4; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .robot-marker__pulse,
+  .link--live .link__dot { animation: none; }
+  .rose__needle { transition: none; }
+}
+
+/* ---- responsive ---------------------------------------------------------- */
+@media (max-width: 560px) {
+  .hud--top { padding: 10px 14px; }
+  .station__name { font-size: 15px; }
+  .hud--telemetry { left: 12px; right: 12px; bottom: 12px; min-width: 0; }
+  .hud--rose { display: none; }
+}

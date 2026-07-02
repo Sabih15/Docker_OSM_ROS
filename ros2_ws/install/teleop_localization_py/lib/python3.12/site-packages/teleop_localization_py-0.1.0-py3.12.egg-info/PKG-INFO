@@ -1,0 +1,7 @@
+Metadata-Version: 2.1
+Name: teleop-localization-py
+Version: 0.1.0
+Summary: Localization publisher + ROS 2 to WebSocket bridge (OvGU map demo).
+Maintainer: Sab
+Maintainer-email: sab@example.de
+License: MIT

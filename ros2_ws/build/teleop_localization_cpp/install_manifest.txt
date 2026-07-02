@@ -1,0 +1,16 @@
+/home/ws/ros2_ws/install/teleop_localization_cpp/lib/teleop_localization_cpp/localization_node
+/home/ws/ros2_ws/install/teleop_localization_cpp/share/ament_index/resource_index/package_run_dependencies/teleop_localization_cpp
+/home/ws/ros2_ws/install/teleop_localization_cpp/share/ament_index/resource_index/parent_prefix_path/teleop_localization_cpp
+/home/ws/ros2_ws/install/teleop_localization_cpp/share/teleop_localization_cpp/environment/ament_prefix_path.sh
+/home/ws/ros2_ws/install/teleop_localization_cpp/share/teleop_localization_cpp/environment/ament_prefix_path.dsv
+/home/ws/ros2_ws/install/teleop_localization_cpp/share/teleop_localization_cpp/environment/path.sh
+/home/ws/ros2_ws/install/teleop_localization_cpp/share/teleop_localization_cpp/environment/path.dsv
+/home/ws/ros2_ws/install/teleop_localization_cpp/share/teleop_localization_cpp/local_setup.bash
+/home/ws/ros2_ws/install/teleop_localization_cpp/share/teleop_localization_cpp/local_setup.sh
+/home/ws/ros2_ws/install/teleop_localization_cpp/share/teleop_localization_cpp/local_setup.zsh
+/home/ws/ros2_ws/install/teleop_localization_cpp/share/teleop_localization_cpp/local_setup.dsv
+/home/ws/ros2_ws/install/teleop_localization_cpp/share/teleop_localization_cpp/package.dsv
+/home/ws/ros2_ws/install/teleop_localization_cpp/share/ament_index/resource_index/packages/teleop_localization_cpp
+/home/ws/ros2_ws/install/teleop_localization_cpp/share/teleop_localization_cpp/cmake/teleop_localization_cppConfig.cmake
+/home/ws/ros2_ws/install/teleop_localization_cpp/share/teleop_localization_cpp/cmake/teleop_localization_cppConfig-version.cmake
+/home/ws/ros2_ws/install/teleop_localization_cpp/share/teleop_localization_cpp/package.xml

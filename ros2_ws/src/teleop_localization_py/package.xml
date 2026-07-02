@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>teleop_localization_py</name>
+  <version>0.1.0</version>
+  <description>
+    Python localization publisher and ROS 2 -> WebSocket bridge for displaying
+    a robot's position on an OpenStreetMap view, centred on OvGU Magdeburg.
+  </description>
+  <maintainer email="sab@example.de">Sab</maintainer>
+  <license>MIT</license>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <!-- python3-websockets is provided via pip in the image (see Dockerfile). -->
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

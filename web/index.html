@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>RR100 · OvGU Ground Control</title>
+
+  <!-- Leaflet -->
+  <link rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+          crossorigin=""></script>
+
+  <!-- Type: Space Grotesk for labels, IBM Plex Mono for telemetry readouts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="map" aria-label="Map of OvGU Magdeburg with live robot position"></div>
+
+  <!-- Top bar -->
+  <header class="hud hud--top">
+    <div class="station">
+      <span class="station__eyebrow">Ground Control</span>
+      <span class="station__name">RR100 · OvGU Magdeburg</span>
+    </div>
+    <div id="link" class="link link--connecting" role="status" aria-live="polite">
+      <span class="link__dot"></span>
+      <span class="link__label">Connecting…</span>
+    </div>
+  </header>
+
+  <!-- Telemetry console -->
+  <section class="hud hud--telemetry" aria-label="Live telemetry">
+    <div class="readout">
+      <span class="readout__key">LAT</span>
+      <span class="readout__val" id="lat">—</span>
+      <span class="readout__unit">°N</span>
+    </div>
+    <div class="readout">
+      <span class="readout__key">LON</span>
+      <span class="readout__val" id="lon">—</span>
+      <span class="readout__unit">°E</span>
+    </div>
+    <div class="readout">
+      <span class="readout__key">LINEAR</span>
+      <span class="readout__val" id="linear">—</span>
+      <span class="readout__unit">m/s</span>
+    </div>
+    <div class="readout">
+      <span class="readout__key">ANGULAR</span>
+      <span class="readout__val" id="angular">—</span>
+      <span class="readout__unit">rad/s</span>
+    </div>
+    <div class="readout readout--rate">
+      <span class="readout__key">STREAM</span>
+      <span class="readout__val" id="rate">0</span>
+      <span class="readout__unit">Hz</span>
+    </div>
+  </section>
+
+  <!-- Signature: bearing rose, turns with the robot's track -->
+  <aside class="hud hud--rose" aria-label="Heading">
+    <svg viewBox="0 0 120 120" class="rose">
+      <circle class="rose__ring" cx="60" cy="60" r="52" />
+      <g class="rose__ticks" id="roseTicks"></g>
+      <text class="rose__cardinal" x="60" y="18">N</text>
+      <text class="rose__cardinal" x="60" y="110">S</text>
+      <text class="rose__cardinal" x="106" y="64">E</text>
+      <text class="rose__cardinal" x="14" y="64">W</text>
+      <g id="needle" class="rose__needle">
+        <polygon points="60,16 54,64 66,64" class="rose__needle-n" />
+        <polygon points="60,104 54,64 66,64" class="rose__needle-s" />
+        <circle cx="60" cy="64" r="4" class="rose__hub" />
+      </g>
+    </svg>
+    <span class="rose__readout"><span id="bearing">—</span>°</span>
+  </aside>
+
+  <script src="app.js"></script>
+</body>
+</html>

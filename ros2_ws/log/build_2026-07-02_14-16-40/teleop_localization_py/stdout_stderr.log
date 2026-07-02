@@ -1,0 +1,41 @@
+running egg_info
+creating ../../build/teleop_localization_py/teleop_localization_py.egg-info
+writing ../../build/teleop_localization_py/teleop_localization_py.egg-info/PKG-INFO
+writing dependency_links to ../../build/teleop_localization_py/teleop_localization_py.egg-info/dependency_links.txt
+writing entry points to ../../build/teleop_localization_py/teleop_localization_py.egg-info/entry_points.txt
+writing requirements to ../../build/teleop_localization_py/teleop_localization_py.egg-info/requires.txt
+writing top-level names to ../../build/teleop_localization_py/teleop_localization_py.egg-info/top_level.txt
+writing manifest file '../../build/teleop_localization_py/teleop_localization_py.egg-info/SOURCES.txt'
+reading manifest file '../../build/teleop_localization_py/teleop_localization_py.egg-info/SOURCES.txt'
+writing manifest file '../../build/teleop_localization_py/teleop_localization_py.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/ws/ros2_ws/build/teleop_localization_py/build
+creating /home/ws/ros2_ws/build/teleop_localization_py/build/lib
+creating /home/ws/ros2_ws/build/teleop_localization_py/build/lib/teleop_localization_py
+copying teleop_localization_py/localization_node.py -> /home/ws/ros2_ws/build/teleop_localization_py/build/lib/teleop_localization_py
+copying teleop_localization_py/ws_bridge.py -> /home/ws/ros2_ws/build/teleop_localization_py/build/lib/teleop_localization_py
+copying teleop_localization_py/__init__.py -> /home/ws/ros2_ws/build/teleop_localization_py/build/lib/teleop_localization_py
+running install
+running install_lib
+creating /home/ws/ros2_ws/install/teleop_localization_py/lib/python3.12/site-packages/teleop_localization_py
+copying /home/ws/ros2_ws/build/teleop_localization_py/build/lib/teleop_localization_py/localization_node.py -> /home/ws/ros2_ws/install/teleop_localization_py/lib/python3.12/site-packages/teleop_localization_py
+copying /home/ws/ros2_ws/build/teleop_localization_py/build/lib/teleop_localization_py/ws_bridge.py -> /home/ws/ros2_ws/install/teleop_localization_py/lib/python3.12/site-packages/teleop_localization_py
+copying /home/ws/ros2_ws/build/teleop_localization_py/build/lib/teleop_localization_py/__init__.py -> /home/ws/ros2_ws/install/teleop_localization_py/lib/python3.12/site-packages/teleop_localization_py
+byte-compiling /home/ws/ros2_ws/install/teleop_localization_py/lib/python3.12/site-packages/teleop_localization_py/localization_node.py to localization_node.cpython-312.pyc
+byte-compiling /home/ws/ros2_ws/install/teleop_localization_py/lib/python3.12/site-packages/teleop_localization_py/ws_bridge.py to ws_bridge.cpython-312.pyc
+byte-compiling /home/ws/ros2_ws/install/teleop_localization_py/lib/python3.12/site-packages/teleop_localization_py/__init__.py to __init__.cpython-312.pyc
+running install_data
+creating /home/ws/ros2_ws/install/teleop_localization_py/share/ament_index
+creating /home/ws/ros2_ws/install/teleop_localization_py/share/ament_index/resource_index
+creating /home/ws/ros2_ws/install/teleop_localization_py/share/ament_index/resource_index/packages
+copying resource/teleop_localization_py -> /home/ws/ros2_ws/install/teleop_localization_py/share/ament_index/resource_index/packages
+copying package.xml -> /home/ws/ros2_ws/install/teleop_localization_py/share/teleop_localization_py
+creating /home/ws/ros2_ws/install/teleop_localization_py/share/teleop_localization_py/launch
+copying launch/teleop.launch.py -> /home/ws/ros2_ws/install/teleop_localization_py/share/teleop_localization_py/launch
+running install_egg_info
+Copying ../../build/teleop_localization_py/teleop_localization_py.egg-info to /home/ws/ros2_ws/install/teleop_localization_py/lib/python3.12/site-packages/teleop_localization_py-0.1.0-py3.12.egg-info
+running install_scripts
+Installing localization_node script to /home/ws/ros2_ws/install/teleop_localization_py/lib/teleop_localization_py
+Installing ws_bridge script to /home/ws/ros2_ws/install/teleop_localization_py/lib/teleop_localization_py
+writing list of installed files to '/home/ws/ros2_ws/build/teleop_localization_py/install.log'

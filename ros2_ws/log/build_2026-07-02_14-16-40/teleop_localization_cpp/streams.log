@@ -1,0 +1,55 @@
+[0.006s] Invoking command in '/home/ws/ros2_ws/build/teleop_localization_cpp': CMAKE_PREFIX_PATH=/opt/ros/jazzy /usr/bin/cmake /home/ws/ros2_ws/src/teleop_localization_cpp -DCMAKE_INSTALL_PREFIX=/home/ws/ros2_ws/install/teleop_localization_cpp
+[0.037s] -- The C compiler identification is GNU 13.3.0
+[0.063s] -- The CXX compiler identification is GNU 13.3.0
+[0.070s] -- Detecting C compiler ABI info
+[0.107s] -- Detecting C compiler ABI info - done
+[0.112s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.112s] -- Detecting C compile features
+[0.112s] -- Detecting C compile features - done
+[0.116s] -- Detecting CXX compiler ABI info
+[0.156s] -- Detecting CXX compiler ABI info - done
+[0.161s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.161s] -- Detecting CXX compile features
+[0.162s] -- Detecting CXX compile features - done
+[0.163s] -- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.216s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[0.261s] -- Found rclcpp: 28.1.21 (/opt/ros/jazzy/share/rclcpp/cmake)
+[0.274s] -- Found rosidl_generator_c: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.279s] -- Found rosidl_generator_cpp: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[0.284s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.291s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.324s] -- Found rmw_implementation_cmake: 7.3.3 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[0.325s] -- Found rmw_fastrtps_cpp: 8.4.4 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[0.356s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  
+[0.364s] -- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") 
+[0.373s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.410s] -- Found sensor_msgs: 5.3.8 (/opt/ros/jazzy/share/sensor_msgs/cmake)
+[0.480s] -- Configuring done (0.5s)
+[0.485s] -- Generating done (0.0s)
+[0.487s] -- Build files have been written to: /home/ws/ros2_ws/build/teleop_localization_cpp
+[0.491s] Invoked command in '/home/ws/ros2_ws/build/teleop_localization_cpp' returned '0': CMAKE_PREFIX_PATH=/opt/ros/jazzy /usr/bin/cmake /home/ws/ros2_ws/src/teleop_localization_cpp -DCMAKE_INSTALL_PREFIX=/home/ws/ros2_ws/install/teleop_localization_cpp
+[0.492s] Invoking command in '/home/ws/ros2_ws/build/teleop_localization_cpp': CMAKE_PREFIX_PATH=/opt/ros/jazzy /usr/bin/cmake --build /home/ws/ros2_ws/build/teleop_localization_cpp -- -j24 -l24
+[0.515s] [ 50%] [32mBuilding CXX object CMakeFiles/localization_node.dir/src/localization_node.cpp.o[0m
+[2.933s] [100%] [32m[1mLinking CXX executable localization_node[0m
+[3.014s] [100%] Built target localization_node
+[3.019s] Invoked command in '/home/ws/ros2_ws/build/teleop_localization_cpp' returned '0': CMAKE_PREFIX_PATH=/opt/ros/jazzy /usr/bin/cmake --build /home/ws/ros2_ws/build/teleop_localization_cpp -- -j24 -l24
+[3.023s] Invoking command in '/home/ws/ros2_ws/build/teleop_localization_cpp': CMAKE_PREFIX_PATH=/opt/ros/jazzy /usr/bin/cmake --install /home/ws/ros2_ws/build/teleop_localization_cpp
+[3.027s] -- Install configuration: ""
+[3.027s] -- Installing: /home/ws/ros2_ws/install/teleop_localization_cpp/lib/teleop_localization_cpp/localization_node
+[3.028s] -- Set non-toolchain portion of runtime path of "/home/ws/ros2_ws/install/teleop_localization_cpp/lib/teleop_localization_cpp/localization_node" to ""
+[3.028s] -- Installing: /home/ws/ros2_ws/install/teleop_localization_cpp/share/ament_index/resource_index/package_run_dependencies/teleop_localization_cpp
+[3.028s] -- Installing: /home/ws/ros2_ws/install/teleop_localization_cpp/share/ament_index/resource_index/parent_prefix_path/teleop_localization_cpp
+[3.028s] -- Installing: /home/ws/ros2_ws/install/teleop_localization_cpp/share/teleop_localization_cpp/environment/ament_prefix_path.sh
+[3.028s] -- Installing: /home/ws/ros2_ws/install/teleop_localization_cpp/share/teleop_localization_cpp/environment/ament_prefix_path.dsv
+[3.028s] -- Installing: /home/ws/ros2_ws/install/teleop_localization_cpp/share/teleop_localization_cpp/environment/path.sh
+[3.028s] -- Installing: /home/ws/ros2_ws/install/teleop_localization_cpp/share/teleop_localization_cpp/environment/path.dsv
+[3.028s] -- Installing: /home/ws/ros2_ws/install/teleop_localization_cpp/share/teleop_localization_cpp/local_setup.bash
+[3.028s] -- Installing: /home/ws/ros2_ws/install/teleop_localization_cpp/share/teleop_localization_cpp/local_setup.sh
+[3.028s] -- Installing: /home/ws/ros2_ws/install/teleop_localization_cpp/share/teleop_localization_cpp/local_setup.zsh
+[3.028s] -- Installing: /home/ws/ros2_ws/install/teleop_localization_cpp/share/teleop_localization_cpp/local_setup.dsv
+[3.028s] -- Installing: /home/ws/ros2_ws/install/teleop_localization_cpp/share/teleop_localization_cpp/package.dsv
+[3.028s] -- Installing: /home/ws/ros2_ws/install/teleop_localization_cpp/share/ament_index/resource_index/packages/teleop_localization_cpp
+[3.028s] -- Installing: /home/ws/ros2_ws/install/teleop_localization_cpp/share/teleop_localization_cpp/cmake/teleop_localization_cppConfig.cmake
+[3.028s] -- Installing: /home/ws/ros2_ws/install/teleop_localization_cpp/share/teleop_localization_cpp/cmake/teleop_localization_cppConfig-version.cmake
+[3.028s] -- Installing: /home/ws/ros2_ws/install/teleop_localization_cpp/share/teleop_localization_cpp/package.xml
+[3.030s] Invoked command in '/home/ws/ros2_ws/build/teleop_localization_cpp' returned '0': CMAKE_PREFIX_PATH=/opt/ros/jazzy /usr/bin/cmake --install /home/ws/ros2_ws/build/teleop_localization_cpp

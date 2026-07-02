@@ -1,0 +1,43 @@
+[0.249s] Invoking command in '/home/ws/ros2_ws/src/teleop_localization_py': PYTHONPATH=/home/ws/ros2_ws/build/teleop_localization_py/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ws/ros2_ws/install/teleop_localization_py/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/teleop_localization_py build --build-base /home/ws/ros2_ws/build/teleop_localization_py/build install --record /home/ws/ros2_ws/build/teleop_localization_py/install.log --install-scripts $base/lib/teleop_localization_py --single-version-externally-managed install_data
+[0.325s] running egg_info
+[0.326s] creating ../../build/teleop_localization_py/teleop_localization_py.egg-info
+[0.329s] writing ../../build/teleop_localization_py/teleop_localization_py.egg-info/PKG-INFO
+[0.329s] writing dependency_links to ../../build/teleop_localization_py/teleop_localization_py.egg-info/dependency_links.txt
+[0.329s] writing entry points to ../../build/teleop_localization_py/teleop_localization_py.egg-info/entry_points.txt
+[0.329s] writing requirements to ../../build/teleop_localization_py/teleop_localization_py.egg-info/requires.txt
+[0.329s] writing top-level names to ../../build/teleop_localization_py/teleop_localization_py.egg-info/top_level.txt
+[0.329s] writing manifest file '../../build/teleop_localization_py/teleop_localization_py.egg-info/SOURCES.txt'
+[0.337s] reading manifest file '../../build/teleop_localization_py/teleop_localization_py.egg-info/SOURCES.txt'
+[0.337s] writing manifest file '../../build/teleop_localization_py/teleop_localization_py.egg-info/SOURCES.txt'
+[0.337s] running build
+[0.337s] running build_py
+[0.337s] creating /home/ws/ros2_ws/build/teleop_localization_py/build
+[0.337s] creating /home/ws/ros2_ws/build/teleop_localization_py/build/lib
+[0.337s] creating /home/ws/ros2_ws/build/teleop_localization_py/build/lib/teleop_localization_py
+[0.337s] copying teleop_localization_py/localization_node.py -> /home/ws/ros2_ws/build/teleop_localization_py/build/lib/teleop_localization_py
+[0.338s] copying teleop_localization_py/ws_bridge.py -> /home/ws/ros2_ws/build/teleop_localization_py/build/lib/teleop_localization_py
+[0.338s] copying teleop_localization_py/__init__.py -> /home/ws/ros2_ws/build/teleop_localization_py/build/lib/teleop_localization_py
+[0.338s] running install
+[0.341s] running install_lib
+[0.344s] creating /home/ws/ros2_ws/install/teleop_localization_py/lib/python3.12/site-packages/teleop_localization_py
+[0.344s] copying /home/ws/ros2_ws/build/teleop_localization_py/build/lib/teleop_localization_py/localization_node.py -> /home/ws/ros2_ws/install/teleop_localization_py/lib/python3.12/site-packages/teleop_localization_py
+[0.344s] copying /home/ws/ros2_ws/build/teleop_localization_py/build/lib/teleop_localization_py/ws_bridge.py -> /home/ws/ros2_ws/install/teleop_localization_py/lib/python3.12/site-packages/teleop_localization_py
+[0.344s] copying /home/ws/ros2_ws/build/teleop_localization_py/build/lib/teleop_localization_py/__init__.py -> /home/ws/ros2_ws/install/teleop_localization_py/lib/python3.12/site-packages/teleop_localization_py
+[0.345s] byte-compiling /home/ws/ros2_ws/install/teleop_localization_py/lib/python3.12/site-packages/teleop_localization_py/localization_node.py to localization_node.cpython-312.pyc
+[0.345s] byte-compiling /home/ws/ros2_ws/install/teleop_localization_py/lib/python3.12/site-packages/teleop_localization_py/ws_bridge.py to ws_bridge.cpython-312.pyc
+[0.346s] byte-compiling /home/ws/ros2_ws/install/teleop_localization_py/lib/python3.12/site-packages/teleop_localization_py/__init__.py to __init__.cpython-312.pyc
+[0.346s] running install_data
+[0.346s] creating /home/ws/ros2_ws/install/teleop_localization_py/share/ament_index
+[0.346s] creating /home/ws/ros2_ws/install/teleop_localization_py/share/ament_index/resource_index
+[0.346s] creating /home/ws/ros2_ws/install/teleop_localization_py/share/ament_index/resource_index/packages
+[0.346s] copying resource/teleop_localization_py -> /home/ws/ros2_ws/install/teleop_localization_py/share/ament_index/resource_index/packages
+[0.346s] copying package.xml -> /home/ws/ros2_ws/install/teleop_localization_py/share/teleop_localization_py
+[0.346s] creating /home/ws/ros2_ws/install/teleop_localization_py/share/teleop_localization_py/launch
+[0.346s] copying launch/teleop.launch.py -> /home/ws/ros2_ws/install/teleop_localization_py/share/teleop_localization_py/launch
+[0.346s] running install_egg_info
+[0.350s] Copying ../../build/teleop_localization_py/teleop_localization_py.egg-info to /home/ws/ros2_ws/install/teleop_localization_py/lib/python3.12/site-packages/teleop_localization_py-0.1.0-py3.12.egg-info
+[0.351s] running install_scripts
+[0.382s] Installing localization_node script to /home/ws/ros2_ws/install/teleop_localization_py/lib/teleop_localization_py
+[0.383s] Installing ws_bridge script to /home/ws/ros2_ws/install/teleop_localization_py/lib/teleop_localization_py
+[0.383s] writing list of installed files to '/home/ws/ros2_ws/build/teleop_localization_py/install.log'
+[0.397s] Invoked command in '/home/ws/ros2_ws/src/teleop_localization_py' returned '0': PYTHONPATH=/home/ws/ros2_ws/build/teleop_localization_py/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ws/ros2_ws/install/teleop_localization_py/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/teleop_localization_py build --build-base /home/ws/ros2_ws/build/teleop_localization_py/build install --record /home/ws/ros2_ws/build/teleop_localization_py/install.log --install-scripts $base/lib/teleop_localization_py --single-version-externally-managed install_data

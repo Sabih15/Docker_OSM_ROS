@@ -1,0 +1,17 @@
+services:
+  teleop:
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+    image: ros2-osm-teleop:jazzy
+    container_name: ros2-osm-teleop
+    environment:
+      # IMPL selects the localization node language: "py" (default) or "cpp".
+      IMPL: $py
+    ports:
+      - "8000:8000"   # map UI  -> http://localhost:8000
+      - "9090:9090"   # websocket stream
+    # DDS discovery stays inside the container; host networking is not needed
+    # for this self-contained demo. Add `network_mode: host` only if you want
+    # the topics visible to a ROS 2 graph running on the host.
+    restart: unless-stopped
