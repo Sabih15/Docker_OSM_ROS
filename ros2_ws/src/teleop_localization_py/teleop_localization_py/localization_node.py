@@ -85,8 +85,22 @@ class LocalizationNode(Node):
         marker traces a visible arc on the map. Replace this with a real
         /cmd_vel subscriber to drive from a gamepad or planner.
         """
+        #figure-8 weaving motion
+        # linear = self.max_lin
+        # angular = self.max_ang * math.sin(0.10 * self.t)
+
+        #tight-circle weaving motion (with max turn angle)
+        # linear = self.max_lin
+        # angular = self.max_ang
+
+        #straigt line motion
         linear = self.max_lin
-        angular = self.max_ang * math.sin(0.10 * self.t)
+        angular = 0.0
+
+        #stop scenario i.e. no motion
+        # linear = 0.0
+        # angular = 0.0
+
         return linear, angular
 
     def on_tick(self) -> None:

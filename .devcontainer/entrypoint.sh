@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Container entrypoint: serve the map UI and launch the ROS 2 graph.
-set -euo pipefail
+set -eo pipefail
 
 source /opt/ros/jazzy/setup.bash
 source /ros2_ws/install/setup.bash

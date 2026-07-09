@@ -1,4 +1,3 @@
-# syntax=docker/dockerfile:1
 
 # ──────────────────────────────────────────────────────────────────────────
 #  Stage 1 — builder: compile the C++ node and install the Python package.
@@ -9,10 +8,10 @@ FROM ros:jazzy-ros-base AS builder
 SHELL ["/bin/bash", "-lc"]
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        ros-dev-tools \
-        build-essential \
-        cmake \
-        python3-colcon-common-extensions \
+    ros-dev-tools \
+    build-essential \
+    cmake \
+    python3-colcon-common-extensions \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /ros2_ws
@@ -21,8 +20,8 @@ COPY ros2_ws/src ./src
 # merge-install gives a single, easy-to-copy install tree.
 RUN source /opt/ros/jazzy/setup.bash && \
     colcon build \
-        --merge-install \
-        --cmake-args -DCMAKE_BUILD_TYPE=Release
+    --merge-install \
+    --cmake-args -DCMAKE_BUILD_TYPE=Release
 
 # ──────────────────────────────────────────────────────────────────────────
 #  Stage 2 — runtime: ros-base already provides rclpy, rclcpp, sensor_msgs
@@ -34,25 +33,32 @@ FROM ros:jazzy-ros-base AS runtime
 SHELL ["/bin/bash", "-lc"]
 
 # ros-base already provides rclpy, rclcpp, sensor_msgs, geometry_msgs.
-# Add only the websockets lib via apt (v12.0 on Noble) — no pip, no PEP 668.
+# Install python3-websockets and sudo in a single apt layer.
+# Falls back to pip if apt cannot reach archive.ubuntu.com.
 RUN apt-get update && apt-get install -y --no-install-recommends \
         python3-websockets \
-    && rm -rf /var/lib/apt/lists/*
+        python3-pip \
+        sudo \
+    && rm -rf /var/lib/apt/lists/* \
+    || (echo "[Dockerfile] apt failed — falling back to pip for websockets" \
+        && pip3 install --break-system-packages websockets)
 
 WORKDIR /ros2_ws
 COPY --from=builder /ros2_ws/install /ros2_ws/install
 COPY web /web
 COPY .devcontainer/entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+# Guard against Windows CRLF line endings breaking the shebang line.
+RUN apt-get update && apt-get install -y --no-install-recommends dos2unix \
+    && dos2unix /entrypoint.sh \
+    && rm -rf /var/lib/apt/lists/* \
+    && chmod +x /entrypoint.sh
 
 ENV IMPL=py
 ENV RMW_IMPLEMENTATION=rmw_fastrtps_cpp
 
 ARG USERNAME=ubuntu
 
-RUN apt-get update && apt-get install -y --no-install-recommends sudo && \
-    rm -rf /var/lib/apt/lists/* && \
-    echo "${USERNAME} ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/${USERNAME} && \
+RUN echo "${USERNAME} ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/${USERNAME} && \
     chmod 0440 /etc/sudoers.d/${USERNAME}
 
 EXPOSE 8000 9090
