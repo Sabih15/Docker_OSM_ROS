@@ -7,10 +7,11 @@ A unicycle motion model is integrated from a *clamped* Twist command
 ENU pose is converted to WGS-84 latitude/longitude using an equirectangular
 approximation around a fixed origin.
 
-The true position is perturbed with synthetic GPS noise, then each axis
-(lat, lon) is independently smoothed by a velocity-informed 1D Kalman
-filter (see teleop_localization_filters). The published fix is the
-filtered estimate, not the raw noisy measurement.
+Each axis (lat, lon) is independently smoothed by a velocity-informed 1D
+Kalman filter (see teleop_localization_filters) before publishing. The
+filter's measurement noise parameter reflects the accuracy expected from
+a real GPS source; no synthetic noise is injected here -- swap in a real
+NavSatFix subscription to replace the dead-reckoned "measurement" below.
 
 Published topics
 ----------------
@@ -21,7 +22,6 @@ Everything runs at a single fixed rate (default 30 Hz).
 """
 
 import math
-import random
 
 import rclpy
 from rclpy.node import Node
@@ -51,7 +51,7 @@ class LocalizationNode(Node):
         self.declare_parameter("rate_hz", 30.0)
         self.declare_parameter("max_linear", 0.2)          # m/s   (hard limit)
         self.declare_parameter("max_angular", 0.2)         # rad/s (hard limit)
-        self.declare_parameter("gps_noise_std_m", 2.5)          # synthetic sensor noise (1 sigma)
+        self.declare_parameter("gps_noise_std_m", 2.5)          # assumed GPS measurement noise (1 sigma)
         self.declare_parameter("gps_process_noise_std_m", 0.5)  # Kalman process noise (1 sigma)
 
         self.lat0 = self.get_parameter("center_lat").value
@@ -141,9 +141,10 @@ class LocalizationNode(Node):
         self.x += v * math.cos(self.theta) * self.dt
         self.y += v * math.sin(self.theta) * self.dt
 
-        # Local ENU offset -> WGS-84 (true, noise-free position).
-        lat_true = self.lat0 + self.y / self._m_per_deg_lat
-        lon_true = self.lon0 + self.x / self._m_per_deg_lon
+        # Local ENU offset -> WGS-84 (dead-reckoned "measurement" -- replace
+        # with a real NavSatFix subscription once real GPS hardware is wired in).
+        lat_meas = self.lat0 + self.y / self._m_per_deg_lat
+        lon_meas = self.lon0 + self.x / self._m_per_deg_lon
 
         # Predict step: advance each axis by its share of the current velocity.
         lat_vel_deg_s = (v * math.sin(self.theta)) / self._m_per_deg_lat
@@ -151,9 +152,7 @@ class LocalizationNode(Node):
         self._kf_lat.predict(lat_vel_deg_s, self.dt)
         self._kf_lon.predict(lon_vel_deg_s, self.dt)
 
-        # Simulate a noisy GPS reading, then correct the prediction with it.
-        lat_meas = lat_true + random.gauss(0.0, math.sqrt(self._meas_var_lat))
-        lon_meas = lon_true + random.gauss(0.0, math.sqrt(self._meas_var_lon))
+        # Correction step.
         lat = self._kf_lat.update(lat_meas)
         lon = self._kf_lon.update(lon_meas)
 
