@@ -7,6 +7,11 @@ A unicycle motion model is integrated from a *clamped* Twist command
 ENU pose is converted to WGS-84 latitude/longitude using an equirectangular
 approximation around a fixed origin.
 
+The true position is perturbed with synthetic GPS noise, then each axis
+(lat, lon) is independently smoothed by a velocity-informed 1D Kalman
+filter (see teleop_localization_filters). The published fix is the
+filtered estimate, not the raw noisy measurement.
+
 Published topics
 ----------------
   /robot/gps   (sensor_msgs/NavSatFix)  -- the localization point for the map
@@ -16,6 +21,7 @@ Everything runs at a single fixed rate (default 30 Hz).
 """
 
 import math
+import random
 
 import rclpy
 from rclpy.node import Node
@@ -23,6 +29,8 @@ from rclpy.qos import QoSProfile, ReliabilityPolicy, HistoryPolicy
 
 from sensor_msgs.msg import NavSatFix, NavSatStatus
 from geometry_msgs.msg import Twist
+
+from teleop_localization_filters.kalman_filter_1d import KalmanFilter1D
 
 # WGS-84 mean Earth radius (metres). Good enough for campus-scale dead reckoning.
 EARTH_RADIUS_M = 6_378_137.0
@@ -43,17 +51,31 @@ class LocalizationNode(Node):
         self.declare_parameter("rate_hz", 30.0)
         self.declare_parameter("max_linear", 0.2)          # m/s   (hard limit)
         self.declare_parameter("max_angular", 0.2)         # rad/s (hard limit)
+        self.declare_parameter("gps_noise_std_m", 2.5)          # synthetic sensor noise (1 sigma)
+        self.declare_parameter("gps_process_noise_std_m", 0.5)  # Kalman process noise (1 sigma)
 
         self.lat0 = self.get_parameter("center_lat").value
         self.lon0 = self.get_parameter("center_lon").value
         self.rate = float(self.get_parameter("rate_hz").value)
         self.max_lin = float(self.get_parameter("max_linear").value)
         self.max_ang = float(self.get_parameter("max_angular").value)
+        self.gps_noise_std_m = float(self.get_parameter("gps_noise_std_m").value)
+        self.process_noise_std_m = float(self.get_parameter("gps_process_noise_std_m").value)
         self.dt = 1.0 / self.rate
 
         # Pre-compute the metres-per-degree scale at the origin latitude.
         self._m_per_deg_lat = (math.pi / 180.0) * EARTH_RADIUS_M
         self._m_per_deg_lon = self._m_per_deg_lat * math.cos(math.radians(self.lat0))
+
+        # Noise/process variances expressed in degrees^2, so the filters can
+        # operate directly on lat/lon rather than local ENU metres.
+        self._meas_var_lat = (self.gps_noise_std_m / self._m_per_deg_lat) ** 2
+        self._meas_var_lon = (self.gps_noise_std_m / self._m_per_deg_lon) ** 2
+        proc_var_lat = (self.process_noise_std_m / self._m_per_deg_lat) ** 2
+        proc_var_lon = (self.process_noise_std_m / self._m_per_deg_lon) ** 2
+
+        self._kf_lat = KalmanFilter1D(self.lat0, self._meas_var_lat, proc_var_lat, self._meas_var_lat)
+        self._kf_lon = KalmanFilter1D(self.lon0, self._meas_var_lon, proc_var_lon, self._meas_var_lon)
 
         # ---- Pose state in local ENU frame (metres / radians) ------------
         self.x = 0.0
@@ -74,7 +96,9 @@ class LocalizationNode(Node):
         self.get_logger().info(
             f"localization_node up @ {self.rate:.0f} Hz, origin "
             f"({self.lat0:.6f}, {self.lon0:.6f}), "
-            f"limits lin<= {self.max_lin} m/s ang<= {self.max_ang} rad/s"
+            f"limits lin<= {self.max_lin} m/s ang<= {self.max_ang} rad/s, "
+            f"gps_noise_std={self.gps_noise_std_m}m "
+            f"process_noise_std={self.process_noise_std_m}m"
         )
 
     # ---------------------------------------------------------------------
@@ -117,9 +141,21 @@ class LocalizationNode(Node):
         self.x += v * math.cos(self.theta) * self.dt
         self.y += v * math.sin(self.theta) * self.dt
 
-        # Local ENU offset -> WGS-84.
-        lat = self.lat0 + self.y / self._m_per_deg_lat
-        lon = self.lon0 + self.x / self._m_per_deg_lon
+        # Local ENU offset -> WGS-84 (true, noise-free position).
+        lat_true = self.lat0 + self.y / self._m_per_deg_lat
+        lon_true = self.lon0 + self.x / self._m_per_deg_lon
+
+        # Predict step: advance each axis by its share of the current velocity.
+        lat_vel_deg_s = (v * math.sin(self.theta)) / self._m_per_deg_lat
+        lon_vel_deg_s = (v * math.cos(self.theta)) / self._m_per_deg_lon
+        self._kf_lat.predict(lat_vel_deg_s, self.dt)
+        self._kf_lon.predict(lon_vel_deg_s, self.dt)
+
+        # Simulate a noisy GPS reading, then correct the prediction with it.
+        lat_meas = lat_true + random.gauss(0.0, math.sqrt(self._meas_var_lat))
+        lon_meas = lon_true + random.gauss(0.0, math.sqrt(self._meas_var_lon))
+        lat = self._kf_lat.update(lat_meas)
+        lon = self._kf_lon.update(lon_meas)
 
         now = self.get_clock().now().to_msg()
 
